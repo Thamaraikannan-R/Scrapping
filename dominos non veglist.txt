@@ -1,0 +1,21 @@
+import requests
+from bs4 import BeautifulSoup
+
+items_name=[]
+des=[]
+response=requests.get("https://www.dominos.co.in/menu/non-veg-pizzas")
+content=response.content
+soup=BeautifulSoup(content,"html.parser")
+parent=soup.find_all("div",attrs={"class":"col-md-4 col-xs-12 col-sm-6"})
+for i in parent:
+    j=i.select('h3')
+    k=j[0].getText()
+    items_name.append(k)
+for i in parent:
+    j=i.select('p')
+    k=j[0].getText()
+    des.append(k)
+for (i,k)in zip(items_name,des):
+    print(i,"\n\tt",k)
+
+
